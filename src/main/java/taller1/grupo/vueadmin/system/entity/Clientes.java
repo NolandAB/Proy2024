@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Clientes {
 
     @TableId(value = "\"Id\"", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @TableField("\"Compañía\"")
     private String compania;
@@ -29,44 +29,45 @@ public class Clientes {
     private String nombre;
 
     @TableField("\"Dirección de correo electrónico\"")
-    private String direcciónDeCorreoElectrónico;
+    private String correo;
 
     @TableField("\"Cargo\"")
     private String cargo;
 
     @TableField("\"Teléfono del trabajo\"")
-    private String teléfonoDelTrabajo;
+    private String teltrabajo;
 
     @TableField("\"Teléfono particular\"")
-    private String teléfonoParticular;
+    private String telparticular;
 
     @TableField("\"Teléfono móvil\"")
-    private String teléfonoMóvil;
+    private String telmovil;
 
     @TableField("\"Número de fax\"")
-    private String númeroDeFax;
+    private String fax;
 
     @TableField("\"Dirección\"")
-    private String dirección;
+    private String direccion;
 
     @TableField("\"Ciudad\"")
     private String ciudad;
 
     @TableField("\"Estado o provincia\"")
-    private String estadoOProvincia;
+    private String estadoprovincia;
 
     @TableField("\"C Postal\"")
-    private String cPostal;
+    private String postal;
 
     @TableField("\"País o región\"")
-    private String paísORegión;
+    private String pais;
 
     @TableField("\"Página Web\"")
-    private String páginaWeb;
+    private String paginaweb;
 
     @TableField("\"Notas\"")
     private String notas;
 
     @TableField("\"Datos adjuntos\"")
-    private String datosAdjuntos;
+    private String datosadj;
+    
 }

@@ -10,23 +10,34 @@
             flat
             bordered
             ref="tableRef"
-            title="Modulo 1 Modificado"
+            title="Diez Mejores Pedidos por importe de ventas"
             :rows="state.tableData"
             :columns="columns"
             row-key="Pedido"
-            v-model:pagination="pagination"
+            :pagination="pagination"
             :loading="loading"
             :filter="state.blurry"
             binary-state-sort
             @request="onRequest"
+           
           >
             <template v-slot:top-right>
+              <div class="q-gutter-lg">
+                <q-btn @click="exportToExcel" style="float: right;" label="Imprimir" color="primary" />
+
               <q-input borderless dense debounce="300" v-model="state.blurry" placeholder="Buscar">
                 <template v-slot:append>
                   <q-icon name="search" @click="getModulo1TableFun" />
                 </template>
               </q-input>
+              </div>
             </template>
+            <template v-slot:body-cell-actions="props">
+              <q-td :props="props">
+                <q-btn @click="onDelete(props.row)" fab-mini dense square outline icon="delete" color="negative" aria-label="Delete" />
+              </q-td>
+            </template>
+
           </q-table>
           <q-pagination
             v-model="pagination.page"
@@ -38,9 +49,12 @@
     </q-layout>
   </template>
   <script setup>
+    import * as XLSX from 'xlsx';
   import { ref, reactive, onMounted } from 'vue';
-  import {  getModulo1Table } from '../../api/modulo1/modulo1';
-  import { errorMsg } from '../../utils/message';
+  import {  delModulo1, getModulo1Table } from '../../api/modulo1/modulo1';
+  import { errorMsg, infoMsg, successMsg } from '../../utils/message';
+  import { ElMessageBox } from 'element-plus';
+
   import { date } from 'quasar';
  
 
@@ -71,8 +85,9 @@
 
     { name: 'fechaenvio', required: true, label: 'fechaenvio', align: 'left', field: 'fechaenvio', sortable: true, format: val => date.formatDate(val, 'DD-MM-YYYY')  },
     { name: 'nombrecompania', required: true, label: 'Nombre de \la Compañia', align: 'left', field: 'nombrecompania', sortable: true },
-    { name: 'importeventas', required: true, label: 'importeventas', align: 'left', field: 'importeventas', sortable: true }
+    { name: 'importeventas', required: true, label: 'importeventas', align: 'left', field: 'importeventas', sortable: true },
   ];
+
   
   const loading = ref(false);
   const pagination = ref({
@@ -81,6 +96,19 @@
     page: 1,
     rowsPerPage: 10,
   });
+  const exportToExcel = () => {
+  // Crea un libro de trabajo
+  const wb = XLSX.utils.book_new();
+
+  // Convierte los datos de la tabla en un formato adecuado para Excel
+  const ws = XLSX.utils.json_to_sheet(state.tableData);
+
+  // Agrega la hoja de trabajo al libro de trabajo
+  XLSX.utils.book_append_sheet(wb, ws, "Diez mejores pedidos");
+
+  // Genera y descarga el archivo Excel
+  XLSX.writeFile(wb, "Diez_mejores_pedidos.xlsx");
+};
   
   const getModulo1TableFun = () => {
     loading.value = true;
@@ -122,6 +150,28 @@
     getModulo1TableFun();
     
   };
+
+  async function onDelete(props) {
+    console.log(props.idpedido)
+    ElMessageBox.confirm('Confirmar Eliminar el mejor pedido de ' + props.nombrecompania +'?',{
+      confirmButtonText: 'Seguro',
+      cancelButtonText: 'Cancelar',
+      type: 'warning'
+    }).then(() =>{
+      delModulo1({idpedido: props.idpedido, fechapedido: props.fechapedido, 
+        fechaenvio: props.fechaenvio, nombrecompania: props.nombrecompania, importeventas: props.importeventas
+      }).then(res =>{
+        if (res.success){
+          successMsg(res.data)
+          getModulo1TableFun()
+        } else{
+          errorMsg(res.msg)
+        }
+      })
+    }).catch(()=>{
+      infoMsg('Operacion Cancelada')
+    })
+  }
   
   onMounted(() => {
     getModulo1TableFun();

@@ -15,10 +15,10 @@ spring:
       ddl-auto: create-drop
   datasource:
     # platform: postgres
-    url: 'jdbc:postgresql://localhost:5432/taller12024'
+    url: 'jdbc:postgresql://localhost:5432/vueadmin'
     username: postgres
-    password: celeron
-logging:
+    password: postgres
+
   level:
     org:
       springframework:

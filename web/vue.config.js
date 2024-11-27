@@ -11,7 +11,7 @@ module.exports = defineConfig({
   // Configuración del servidor de desarrollo
   devServer: {
     host: '0.0.0.0',
-    port: '3000',
+    port: '8415',
     proxy: {
       '/api': {
         target: `http://${http}`,

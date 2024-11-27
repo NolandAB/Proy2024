@@ -103,6 +103,7 @@ const submitUser = () => {
           console.log(res.data)
           visible.value = false
           emit('get-list')
+          closeDialog()
         } else {
           errorMsg(res.msg)
         }

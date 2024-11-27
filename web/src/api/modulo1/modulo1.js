@@ -7,3 +7,11 @@ export function getModulo1Table(params){
         params
     })
 }
+
+export function delModulo1(params){
+    return request({
+        url: '/api/sys/modulo1/del',
+        method: 'delete',
+        params
+    })
+}

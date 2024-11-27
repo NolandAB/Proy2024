@@ -23,5 +23,9 @@ public class Modulo1ServiceImpl implements Modulo1Service {
         page.setSize(queryDto.getSize());
         return modulo1Mapper.queryModulo1Table(page, queryDto.getBlurry());
     }
+    @Override
+    public void delModulo1(Long idpedido) {
+        modulo1Mapper.deleteById(idpedido);
+    }
 
 }

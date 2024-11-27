@@ -13,3 +13,27 @@ export function getClientesList(params){
         params
     })
 }
+/**
+ * Obtener lista de registro
+ * @param data
+ * @returns {AxiosPromise}
+ */
+export function editClientes(data){
+    return request({
+        url: '/api/sys/clientes/edit',
+        method: 'post',
+        data
+    })
+}
+/**
+ * Eliminar cliente según ID
+ * @param params
+ * @returns {AxiosPromise}
+ */
+export function delCliente(params){
+    return request({
+        url: '/api/sys/clientes/del',
+        method: 'delete',
+        params
+    })
+}

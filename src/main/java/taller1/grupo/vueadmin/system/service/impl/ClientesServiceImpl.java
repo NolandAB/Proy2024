@@ -61,15 +61,38 @@ public class ClientesServiceImpl implements ClientesService {
         }
 
     }
+    /**
+     * @param clientes
+     * @Description: Editar menú
+     * @Param: [clientes]
+     * @return: void
+     * @Author: richard sivila
+     * @Date: 2021/11/27
+     */
 
     @Override
-    public void editClientes(ClientesDto clientesDto) {
-        checkClientes(clientesDto);
-
-        Clientes clientes = new Clientes();
-
-        clientes.setCompania(clientesDto.getCompania());
-        clientes.setNombre(clientesDto.getNombre());
+    public void editClientes(Clientes clientes) {
+        
+        if (clientes.getId() != null) {
+            clientesMapper.updateById(clientes);
+        }else{
+            clientesMapper.insert(clientes);
+        }
     }
+
+    /**
+     * @param id
+     * @Description: Eliminar el enlace entre usuario y rol
+     * @Param: [id]
+     * @return: void
+     * @Author: richard sivila
+     * @Date: 2024
+     */
+    @Override
+    public void delCliente(Long id) {
+        clientesMapper.deleteById(id);
+    }
+    
+
 
 }

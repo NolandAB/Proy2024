@@ -4,6 +4,10 @@ import Home from '../views/Home'
 
 export const routerMap = [
     {
+        path: '/',
+        redirect: '/home', // Redirigir la raíz a /home
+    },
+    {
         path: '/login',
         name: 'login',
         component: () => import('../login')

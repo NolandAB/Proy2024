@@ -9,9 +9,13 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 public interface ClientesService {
+    
     public List<Clientes> getClientesList(String blurry);
 
     public IPage<ClientesDto> queryClientesTable(QueryDto queryDto);
 
-    void editClientes(ClientesDto clientesDto);
+    void editClientes(Clientes clientes);
+
+    void delCliente(Long id);
+
 }

@@ -6,21 +6,38 @@
 <result column="Compañía" property="compania" jdbcType="VARCHAR"></result>
 <result column="Apellidos" property="apellidos" jdbcType="VARCHAR"></result>
 <result column="Nombre" property="nombre" jdbcType="VARCHAR"></result>
-
+<result column="Dirección de correo electrónico" property="correo" jdbcType="VARCHAR"></result>
+<result column="Cargo" property="cargo" jdbcType="VARCHAR"></result>
+<result column="Teléfono del trabajo" property="teltrabajo" jdbcType="VARCHAR"></result>
+<result column="Teléfono particular" property="telparticular" jdbcType="VARCHAR"></result>
+<result column="Teléfono móvil" property="telmovil" jdbcType="VARCHAR"></result>
+<result column="Número de fax" property="fax" jdbcType="VARCHAR"></result>
+<result column="Dirección" property="direccion" jdbcType="VARCHAR"></result>
+<result column="Ciudad" property="ciudad" jdbcType="VARCHAR"></result>
+<result column="Estado o provincia" property="estadoprovincia" jdbcType="VARCHAR"></result>
+<result column="C Postal" property="postal" jdbcType="VARCHAR"></result>
+<result column="País o región" property="pais" jdbcType="VARCHAR"></result>
+<result column="Página Web" property="paginaweb" jdbcType="VARCHAR"></result>
+<result column="Notas" property="notas" jdbcType="VARCHAR"></result>
+<result column="Datos adjuntos" property="datosadj" jdbcType="VARCHAR"></result>
   </resultMap>
 
      <select id="queryClientesTable" resultMap="clientesResult">
         SELECT t1."Id", t1."Compañía", 
-        t1."Apellidos", t1."Nombre"
+        t1."Apellidos", t1."Nombre",
+		t1."Dirección de correo electrónico", t1."Cargo",
+		t1."Teléfono del trabajo", t1."Teléfono particular",
+		t1."Teléfono móvil", t1."Número de fax", t1."Dirección",
+		t1."Ciudad", t1."Estado o provincia", t1."C Postal", t1."País o región",
+		t1."Página Web", t1."Notas", t1."Datos adjuntos"
         FROM northwind."Clientes" t1
         <where>
             <if test="blurry != null and blurry != ''">
                 AND
-                 (t1."Compañía" = #{blurry} OR t1."apellidos" = #{blurry}
-                 OR t1."nombre" = #{blurry})
+                 (t1."Compañía" = #{blurry} OR t1."Apellidos" = #{blurry}
+                 OR t1."Nombre" = #{blurry})
 
             </if>
         </where>
     </select>
-
 </mapper>
