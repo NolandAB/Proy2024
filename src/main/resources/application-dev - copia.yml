@@ -1,18 +1,30 @@
 server:
-  port: 8415
-
+  port: '8415'
 spring:
-  #mysql
+  jpa:
+    database: postgresql
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: create-drop
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ems-admin?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-    username: root
-    password: 12345678
-    hikari:
-      maximum-pool-size: 50
-      idle-timeout: 60000
+    # platform: postgres
+    url: 'jdbc:postgresql://localhost:9000/vueadmin'
+    username: postgres
+    password: postgres
 
-  # 请求超时时间
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: DEBUG
+  # Pide tiempo fuera
   mvc:
     async:
       request-timeout: 5000ms
@@ -22,4 +34,3 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-

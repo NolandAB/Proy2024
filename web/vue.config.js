@@ -11,7 +11,7 @@ module.exports = defineConfig({
   // Configuración del servidor de desarrollo
   devServer: {
     host: '0.0.0.0',
-    port: '8415',
+    port: '9000',
     proxy: {
       '/api': {
         target: `http://${http}`,
@@ -19,7 +19,7 @@ module.exports = defineConfig({
         pathRewrite: {
           '^/api': ''
         },
-        timeout: 60 * 1000
+        timeout: 60000
       },
       '/auth': {
         target: `http://${http}`,
@@ -27,7 +27,7 @@ module.exports = defineConfig({
         pathRewrite: {
           '^/auth': '/auth'
         },
-        timeout: 60 * 1000
+        timeout: 60000
       }
     }
   },

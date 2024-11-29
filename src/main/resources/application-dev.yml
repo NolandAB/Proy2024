@@ -1,36 +1,36 @@
 server:
-  port: '8415'
+  port: 8415
+
 spring:
   jpa:
     database: postgresql
     generate-ddl: true
     show-sql: true
+    hibernate:
+      ddl-auto: update # Cambia "create-drop" a "update" para evitar pérdida de datos
     properties:
       hibernate:
         format_sql: true
-        jdbc:
-          lob:
-            non_contextual_creation: true
-    hibernate:
-      ddl-auto: create-drop
+        jdbc.lob.non_contextual_creation: true
+
   datasource:
-    # platform: postgres
-    url: 'jdbc:postgresql://localhost:5432/vueadmin'
+    url: jdbc:postgresql://localhost:5432/vueadmin
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
 
+logging:
   level:
-    org:
-      springframework:
-        boot:
-          autoconfigure: DEBUG
-  # Pide tiempo fuera
-  mvc:
-    async:
-      request-timeout: 5000ms
+    org.springframework: DEBUG # Activa logs detallados para Spring
 
-#mybatis-plus
+# MyBatis Plus
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto # Configura el tipo de generación de ID
+
+# Configuración del tiempo de espera
+spring.mvc.async.request-timeout: 5000ms
